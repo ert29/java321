@@ -1,0 +1,126 @@
+ gmp = game.Players.LocalPlayer.Character
+gmp["fff_fox"].Handle.SpecialMesh:Remove()
+gmp["Backuette"].Handle.SpecialMesh:Remove()
+
+local unanchoredparts = {}
+		local movers = {}
+		local tog = true
+		local move = false
+		local Player = game:GetService("Players").LocalPlayer
+		local Character = Player.Character
+		local mov = {};
+		local mov2 = {};
+
+		local Hats = {fire  = Character:WaitForChild("fff_fox"), --here place ur hats
+        firestand  = Character:WaitForChild("Backuette"), 
+
+		}
+
+
+		--Dont touch below
+
+		for i,v in next, Hats do
+			v.Handle.AccessoryWeld:Remove()
+			for _,mesh in next, v:GetDescendants() do
+				if mesh:IsA("Mesh") or mesh:IsA("Mesh") then -- change mesh to Specialmesh if u want to destroy the mesh
+					mesh:Remove()
+				end
+			end
+		end
+
+		function ftp(str)
+			local pt = {};
+			if str ~= 'me' and str ~= 'random' then
+				for i, v in pairs(game.Players:GetPlayers()) do
+					if v.Name:lower():find(str:lower()) then
+						table.insert(pt, v);
+					end
+				end
+			elseif str == 'me' then
+				table.insert(pt, plr);
+			elseif str == 'random' then
+				table.insert(pt, game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]);
+			end
+			return pt;
+		end
+
+		local function align(i,v)
+			local att0 = Instance.new("Attachment", i)
+			att0.Position = Vector3.new(0,0,0)
+			local att1 = Instance.new("Attachment", v)
+			att1.Position = Vector3.new(0,0,0)
+			local AP = Instance.new("AlignPosition", i)
+			AP.Attachment0 = att0
+			AP.Attachment1 = att1
+			AP.RigidityEnabled = false
+			AP.ReactionForceEnabled = false
+			AP.ApplyAtCenterOfMass = false
+			AP.MaxForce = 9999999
+			AP.MaxVelocity = math.huge
+			AP.Responsiveness = 65
+			local AO = Instance.new("AlignOrientation", i)
+			AO.Attachment0 = att0
+			AO.Attachment1 = att1
+			AO.ReactionTorqueEnabled = false
+			AO.PrimaryAxisOnly = false
+			AO.MaxTorque = 9999999
+			AO.MaxAngularVelocity = math.huge
+			AO.Responsiveness = 50
+		end
+
+
+		--Dont touch above
+
+		align(Hats.fire.Handle, Character["Torso"]) --example on how to allign
+		align(Hats.firestand.Handle, Character["Torso"])
+
+
+     Hats.fire.Handle.Attachment.Rotation = Vector3.new(0,0,0) --here u can rotate the hats
+     Hats.firestand.Handle.Attachment.Rotation = Vector3.new(0,0,0) 
+
+
+		
+        Character:WaitForChild("Torso"):FindFirstChild("Attachment").Name = "Attachment1" -- here u make the attachments of things u want to connect to
+	    Character:WaitForChild("Torso"):FindFirstChild("Attachment").Name = "Attachment2" 
+
+        Character:WaitForChild("Torso").Attachment1.Position = Vector3.new(0, 0, 0) --here u manage the attachments
+        Character:WaitForChild("Torso").Attachment2.Position = Vector3.new(0, 0, 0)
+        
+        --                                     x  y  z
+        --ok so hi ka if u dont understand the 0, 0, 0 the first one is x second y and third z || x goes forward and backwards
+        -- y goes up and down || z goes left and right easy right? now go make the scripts!
+		 Character:WaitForChild("Torso").Attachment1.Position = Vector3.new(0, 3.5, 0) --position
+		 Character:WaitForChild("Torso").Attachment1.Rotation = Vector3.new(0, 0, 0) --rotation
+		 
+		 Character:WaitForChild("Torso").Attachment2.Position = Vector3.new(0, 0, 0) --position
+		 Character:WaitForChild("Torso").Attachment2.Rotation = Vector3.new(0, 0, 90) --rotation
+		-- Position or Rotation
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(KeyPressed)
+ if KeyPressed ==  "q" then -- key to play animation
+     if toggle == false then
+
+           toggle = true
+    gmp["fff_fox"].Handle.Anchored = false
+    gmp["Backuette"].Handle.Anchored = false
+ else
+     
+	              toggle = false
+     end
+    
+    end
+end)
+
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(KeyPressed)
+ if KeyPressed ==  "e" then -- key to play animation
+     if toggle == false then
+
+           toggle = true
+    gmp["fff_fox"].Handle.Anchored = true
+    gmp["Backuette"].Handle.Anchored = true
+ else
+     
+	              toggle = false
+     end
+    
+    end
+end)
