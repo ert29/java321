@@ -1,0 +1,159 @@
+gmp = game.Players.LocalPlayer.Character
+
+local unanchoredparts = {}
+		local movers = {}
+		local tog = true
+		local move = false
+		local Player = game:GetService("Players").LocalPlayer
+		local Character = Player.Character
+		local mov = {};
+		local mov2 = {};
+
+		local Hats = {torso1  = Character:WaitForChild("Treadmill"),
+        rarm  = Character:WaitForChild("tonk1"), 
+        larm  = Character:WaitForChild("tonk2"), 
+        rleg  = Character:WaitForChild("car1"), 
+        lleg  = Character:WaitForChild("car2"), 
+        head1  = Character:WaitForChild("hed"), 
+		}
+
+
+		--Dont touch below
+
+		for i,v in next, Hats do
+			v.Handle.AccessoryWeld:Remove()
+			for _,mesh in next, v:GetDescendants() do
+				if mesh:IsA("Mesh") or mesh:IsA("Mesh") then -- change mesh to Specialmesh if u want to destroy the mesh
+					mesh:Remove()
+				end
+			end
+		end
+
+		function ftp(str)
+			local pt = {};
+			if str ~= 'me' and str ~= 'random' then
+				for i, v in pairs(game.Players:GetPlayers()) do
+					if v.Name:lower():find(str:lower()) then
+						table.insert(pt, v);
+					end
+				end
+			elseif str == 'me' then
+				table.insert(pt, plr);
+			elseif str == 'random' then
+				table.insert(pt, game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]);
+			end
+			return pt;
+		end
+
+		local function align(i,v)
+			local att0 = Instance.new("Attachment", i)
+			att0.Position = Vector3.new(0,0,0)
+			local att1 = Instance.new("Attachment", v)
+			att1.Position = Vector3.new(0,0,0)
+			local AP = Instance.new("AlignPosition", i)
+			AP.Attachment0 = att0
+			AP.Attachment1 = att1
+			AP.RigidityEnabled = false
+			AP.ReactionForceEnabled = false
+			AP.ApplyAtCenterOfMass = false
+			AP.MaxForce = 9999999
+			AP.MaxVelocity = math.huge
+			AP.Responsiveness = 65
+			local AO = Instance.new("AlignOrientation", i)
+			AO.Attachment0 = att0
+			AO.Attachment1 = att1
+			AO.ReactionTorqueEnabled = false
+			AO.PrimaryAxisOnly = false
+			AO.MaxTorque = 9999999
+			AO.MaxAngularVelocity = math.huge
+			AO.Responsiveness = 50
+		end
+
+
+		--Dont touch above
+
+		align(Hats.torso1.Handle, Character["Torso"])
+		align(Hats.rarm.Handle, Character["Right Arm"])
+    	align(Hats.larm.Handle, Character["Left Arm"])
+    	align(Hats.rleg.Handle, Character["Right Leg"])
+    	align(Hats.lleg.Handle, Character["Left Leg"])
+    	align(Hats.head1.Handle, Character["Head"])
+
+
+     Hats.torso1.Handle.Attachment.Rotation = Vector3.new(0,0,0) 
+     Hats.rarm.Handle.Attachment.Rotation = Vector3.new(0,0,0) 
+     Hats.larm.Handle.Attachment.Rotation = Vector3.new(0,0,0)
+     Hats.rleg.Handle.Attachment.Rotation = Vector3.new(0,0,0) 
+     Hats.lleg.Handle.Attachment.Rotation = Vector3.new(0,0,0)
+     Hats.head1.Handle.Attachment.Rotation = Vector3.new(0,0,0)
+
+		
+        Character:WaitForChild("Torso"):FindFirstChild("Attachment").Name = "Attachment1" -- make a new attachment to
+	    Character:WaitForChild("Right Arm"):FindFirstChild("Attachment").Name = "Attachment2" 
+        Character:WaitForChild("Left Arm"):FindFirstChild("Attachment").Name = "Attachment3"
+        Character:WaitForChild("Right Leg"):FindFirstChild("Attachment").Name = "Attachment4" 
+        Character:WaitForChild("Left Leg"):FindFirstChild("Attachment").Name = "Attachment5"
+        Character:WaitForChild("Head"):FindFirstChild("Attachment").Name = "Attachment6"
+
+        Character:WaitForChild("Torso").Attachment1.Position = Vector3.new(0, 0, 0)
+        Character:WaitForChild("Right Arm").Attachment2.Position = Vector3.new(0, 0, 0)
+        Character:WaitForChild("Left Arm").Attachment3.Position = Vector3.new(0, 0, 0)
+        Character:WaitForChild("Right Leg").Attachment4.Position = Vector3.new(0, 0, 0)
+        Character:WaitForChild("Left Leg").Attachment5.Position = Vector3.new(0, 0, 0)
+        Character:WaitForChild("Head").Attachment6.Position = Vector3.new(0, 0, 0)
+        
+
+        -- the mid value is up or down it depends it goes down if u have a minus infront of it and up if u dont
+		-- the last value is forwards or backwards if u put a minus infront of it it goes forward and if u remove the minus it goes backwards
+		-- the first value is to the side if u dont have minus and to the other side if u have minus im bad at explaining lol
+		 Character:WaitForChild("Torso").Attachment1.Position = Vector3.new(0, 0, 0) --torso
+		 Character:WaitForChild("Right Arm").Attachment2.Position = Vector3.new(3, 0, 0) --larm
+		 Character:WaitForChild("Right Arm").Attachment2.Rotation = Vector3.new(90, 180, 90) --larm rotation
+		 Character:WaitForChild("Left Arm").Attachment3.Position = Vector3.new(-3, 0, 0) --rarm
+		 Character:WaitForChild("Left Arm").Attachment3.Rotation = Vector3.new(90, 180, 90) --rarm rotation
+		 Character:WaitForChild("Right Leg").Attachment4.Position = Vector3.new(1, -3, 0) --lleg
+		 Character:WaitForChild("Right Leg").Attachment4.Rotation = Vector3.new(90, 180, 90) --lleg rotation
+		 Character:WaitForChild("Left Leg").Attachment5.Position = Vector3.new(-1, -3, 0) --rleg
+		 Character:WaitForChild("Left Leg").Attachment5.Rotation = Vector3.new(90, 180, 90) --rleg rotation
+		 Character:WaitForChild("Head").Attachment6.Position = Vector3.new(0, 3, 0) -- head -- sword rotation
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = 5
+        
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(KeyPressed)
+ if KeyPressed ==  "z" then -- key to play animation
+     if toggle == false then
+
+           toggle = true
+        gmp["tonk1"].Handle.Anchored = true
+        gmp["tonk2"].Handle.Anchored = true
+        gmp["hed"].Handle.Anchored = true
+        gmp["car1"].Handle.Anchored = true
+        gmp["car2"].Handle.Anchored = true
+        gmp["Treadmill"].Handle.Anchored = true
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = 0
+ else
+     
+	              toggle = false
+     end
+    
+    end
+end)
+
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(KeyPressed)
+ if KeyPressed ==  "x" then -- key to play animation
+     if toggle == false then
+
+           toggle = true
+        gmp["tonk1"].Handle.Anchored = false
+        gmp["tonk2"].Handle.Anchored = false
+        gmp["hed"].Handle.Anchored = false
+        gmp["car1"].Handle.Anchored = false
+        gmp["car2"].Handle.Anchored = false
+        gmp["Treadmill"].Handle.Anchored = false
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = 5
+ else
+     
+	              toggle = false
+     end
+    
+    end
+end)
